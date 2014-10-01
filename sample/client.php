@@ -8,7 +8,7 @@ use WebSocket\Client;
 require(__DIR__ . '/../vendor/autoload.php');
 
 $clients = array();
-$testClients = 5;
+$testClients = 10;
 $testMessages = 6;
 for($i = 0; $i < $testClients; $i++)
 {
@@ -26,6 +26,6 @@ for($i = 0; $i < $testMessages; $i++)
 {
 	$clientId = rand(0, $testClients-1);
 	$clients[$clientId]->sendData($payload);
-	usleep(5000);
+	sleep(1);
 }
 usleep(5000);
