@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+    var conn = new WebSocket('ws://127.0.0.1:8000/demo');
+    //var conn = new WebSocket('ws://localhost:8080');
+    conn.onopen = function(e) {
+        console.log("Connection established!");
+    };
+    
+    conn.onmessage = function(e) {
+        console.log(e.data);
+        $('#result').append(e.data + "<br>");
+    };
+    
+    $(function(){
+        $('button').click(function(){
+            conn.send(JSON.stringify($('#command').val()));
+        });
+    });
+    </script>
+</head>
+<body>
+<input type="text" id="command" placeholder="message">
+<button>Run</button>
+<div id="result"></div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+    "name": "olegkolt/php-gitwebsocket",
+    "description": "WebSocket PHP server and WebSocket PHP client",
+    "keywords": ["websocket", "asynchronous"],
+    "autoload": {
+        "psr-4": {"WebSocket\\": "src/"}
+    }
+}
