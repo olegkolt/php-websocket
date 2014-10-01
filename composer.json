@@ -1,5 +1,5 @@
 {
-    "name": "olegkolt/php-gitwebsocket",
+    "name": "olegkolt/php-websocket",
     "description": "WebSocket PHP server and WebSocket PHP client",
     "keywords": ["websocket", "asynchronous"],
     "autoload": {
