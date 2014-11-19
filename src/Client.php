@@ -34,7 +34,7 @@ class Client
     public function sendData($data, $type = 'text', $masked = true)
     {
         if ($this->_connected === false) {
-            return false;
+            $this->connect();
         }
         if (empty($data)) {
             return false;
