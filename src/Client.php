@@ -18,8 +18,12 @@ class Client
     private $_Socket = null;
     private $_connected = false;
 
-    public function __construct()
+    public function __construct($host, $port, $path, $origin = false)
     {
+        $this->_host = $host;
+        $this->_port = $port;
+        $this->_path = $path;
+        $this->_origin = $origin;
     }
 
     public function __destruct()
@@ -47,25 +51,20 @@ class Client
         return true;
     }
 
-    public function connect($host, $port, $path, $origin = false)
+    public function connect()
     {
-        $this->_host = $host;
-        $this->_port = $port;
-        $this->_path = $path;
-        $this->_origin = $origin;
-
         $key = base64_encode($this->_generateRandomString(16, false, true));
-        $header = "GET " . $path . " HTTP/1.1\r\n";
-        $header .= "Host: " . $host . ":" . $port . "\r\n";
+        $header = "GET " . $this->_path . " HTTP/1.1\r\n";
+        $header .= "Host: " . $this->_host . ":" . $this->_port . "\r\n";
         $header .= "Upgrade: websocket\r\n";
         $header .= "Connection: Upgrade\r\n";
         $header .= "Sec-WebSocket-Key: " . $key . "\r\n";
         if ($origin !== false) {
-            $header .= "Sec-WebSocket-Origin: " . $origin . "\r\n";
+            $header .= "Sec-WebSocket-Origin: " . $this->_origin . "\r\n";
         }
         $header .= "Sec-WebSocket-Version: 13\r\n";
 
-        $this->_Socket = fsockopen($host, $port, $errno, $errstr, 2);
+        $this->_Socket = fsockopen($this->_host, $this->_port, $errno, $errstr, 2);
         socket_set_timeout($this->_Socket, 0, 10000);
         @fwrite($this->_Socket, $header);
         $response = @fread($this->_Socket, 1500);
