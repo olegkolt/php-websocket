@@ -59,7 +59,7 @@ class Client
         $header .= "Upgrade: websocket\r\n";
         $header .= "Connection: Upgrade\r\n";
         $header .= "Sec-WebSocket-Key: " . $key . "\r\n";
-        if ($origin !== false) {
+        if ($this->_origin !== false) {
             $header .= "Sec-WebSocket-Origin: " . $this->_origin . "\r\n";
         }
         $header .= "Sec-WebSocket-Version: 13\r\n";
@@ -71,9 +71,9 @@ class Client
 
         preg_match('#Sec-WebSocket-Accept:\s(.*)$#mU', $response, $matches);
         $keyAccept = trim($matches[1]);
-        $expectedResonse = base64_encode(pack('H*', sha1($key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
+        $expectedResponse = base64_encode(pack('H*', sha1($key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
 
-        $this->_connected = ($keyAccept === $expectedResonse) ? true : false;
+        $this->_connected = ($keyAccept === $expectedResponse) ? true : false;
         return $this->_connected;
     }
 
