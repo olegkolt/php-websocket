@@ -102,8 +102,10 @@ class Client
 
     public function disconnect()
     {
-        $this->_connected = false;
-        fclose($this->_Socket);
+        if ($this->_connected) {
+            $this->_connected = false;
+            fclose($this->_Socket);
+        }
     }
 
     public function reconnect()
